@@ -1,20 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SimpleBlocObserver implements BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
-    debugPrint('Change $change');
+    debugPrint('change = $change');
   }
 
   @override
   void onClose(BlocBase bloc) {
-    debugPrint('Close $bloc');
+    debugPrint('close = $bloc');
   }
 
   @override
   void onCreate(BlocBase bloc) {
-    debugPrint('Create $bloc');
+    debugPrint('create = $bloc');
   }
 
   @override
