@@ -16,11 +16,16 @@ class AddNote extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: BlocConsumer<AddNoteCubit, AddNoteState>(
           listener: (context, state) {
-            if (state is AddNoteFailure) {
-              print('Failed ${state.errMessage}');
-            }
+            if (state is AddNoteFailure) {}
             if (state is AddNoteSuccess) {
               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text(
+                  'Add Note Success',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.green,
+              ));
               Navigator.pop(context);
             }
           },
