@@ -12,38 +12,35 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddNoteCubit(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: BlocConsumer<AddNoteCubit, AddNoteState>(
-          listener: (context, state) {
-            if (state is AddNoteFailure) {}
-            if (state is AddNoteSuccess) {
-              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text(
-                  'Add Note Success',
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.green,
-              ));
-              Navigator.pop(context);
-            }
-          },
-          builder: (context, state) {
-            return AbsorbPointer(
-              absorbing: state is AddNoteLoading ? true : false,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: 8,
-                    right: 8,
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: const SingleChildScrollView(
-                  child: AddNoteForm(),
-                ),
+      child: BlocConsumer<AddNoteCubit, AddNoteState>(
+        listener: (context, state) {
+          if (state is AddNoteFailure) {}
+          if (state is AddNoteSuccess) {
+            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text(
+                'Add Note Success',
+                style: TextStyle(color: Colors.white),
               ),
-            );
-          },
-        ),
+              backgroundColor: Colors.green,
+            ));
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return AbsorbPointer(
+            absorbing: state is AddNoteLoading ? true : false,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: 8,
+                  right: 8,
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: const SingleChildScrollView(
+                child: AddNoteForm(),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
